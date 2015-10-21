@@ -1,0 +1,6 @@
+library(ggplot2)
+library(reshape2)
+
+mydata <- read.table(pipe("pbpaste"), sep = "\t", header = T)
+mydata2 <- melt(mydata, id.vars = c("Method", "Seqs", "Length", "MeanEnt", "MeanMutEnt", "Lratio"))
+ggplot(mydata2, aes(x = Seqs, y = Length)) +  geom_line(aes(color = value)) + geom_point(size = 3, aes(color = value)) + facet_wrap(Method~variable, nrow = 3, ncol = 8) + scale_color_gradientn(colours = rev(rainbow(3)))

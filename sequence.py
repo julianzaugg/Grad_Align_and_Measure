@@ -6,7 +6,8 @@ Module contains methods and classes for creating, analysing and manipulating seq
 """
 
 from collections import Counter
-import numpy
+import numpy as np
+import math
 
 from prob import *
 
@@ -178,6 +179,20 @@ class Alignment(object):
 
     def get_column(self, position):
         return [s[position] for s in self]
+
+    def get_shannon_entropy(self, position):
+        col_values = self.get_column(position)
+        entropy = 0.0
+        counts = Counter(col_values) # missing amino acids get a count of 0 automatically
+        for k in xrange(len(self.alphabet)):
+            cur_aa = self.alphabet[k]
+            cur_aa_count = float(counts[cur_aa])
+            prob = cur_aa_count / len(col_values)
+            if prob > 0.0:
+                entropy += (prob * math.log(prob))
+        if entropy != 0.0:
+            entropy = -entropy
+        return entropy
 
 
 def read_fasta_file(filename, alphabet):
