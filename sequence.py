@@ -106,7 +106,7 @@ class Alignment(object):
             probs[sym] = float(cnt)/total
         return probs
 
-    def write_clustal_file(self, filename):
+    def write_clustal_file(self, filename = None):
         """
         Save a Alignment in CLUSTAL format.
         """
@@ -180,20 +180,27 @@ class Alignment(object):
     def get_column(self, position):
         return [s[position] for s in self]
 
-    def get_shannon_entropy(self, position):
+    def get_shannon_entropy(self, position, base = None):
         col_values = self.get_column(position)
         entropy = 0.0
-        counts = Counter(col_values) # missing amino acids get a count of 0 automatically
+        counts = Counter(col_values) # missing characters get a count of 0 automatically
         for k in xrange(len(self.alphabet)):
             cur_aa = self.alphabet[k]
             cur_aa_count = float(counts[cur_aa])
             prob = cur_aa_count / len(col_values)
             if prob > 0.0:
-                entropy += (prob * math.log(prob))
+                if base:
+                    entropy += (prob * math.log(prob, base))
+                else:
+                    entropy += (prob * math.log(prob))
         if entropy != 0.0:
             entropy = -entropy
         return entropy
 
+    def get_percent_gaps(self, position):
+        col_values = self.get_column(position)
+        counts = Counter(col_values)
+        return float(counts["-"])/len(col_values)
 
 def read_fasta_file(filename, alphabet):
     """

@@ -155,15 +155,14 @@ if __name__ == "__main__":
                                                       'header =  "Name   Length" '
                                                       'args = --order_file order_file_name Length',
                                                         required=False)
-    parser.add_argument('-sn', '--seqnumber', help='Number of sequences to start alignment from', type=int, default=2)
-    # args = parser.parse_args()
+    parser.add_argument('-sn', '--seqnumber', help='Number of sequences to start alignment from, must be >= 2', type=int, default=2)
+    args = parser.parse_args()
 
-    input_file = "/Users/julianzaugg/Documents/University/Phd/Projects/Evolutionary_Pathway/" \
-                 "Data/ANEH/Sequences/ESTHER/epoxide_fasta.txt"
-    annotation_data = "/Users/julianzaugg/Documents/University/Phd/Projects/Evolutionary_Pathway/Data/ANEH/Sequences/BLAST_results/epoxide_blast_out_simple.txt"
-    # args = parser.parse_args(["-i", input_file, "-alnm", "linsi", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "179", "-skip", "20"])
-    # args = parser.parse_args(["-i", input_file, "-alnm", "muscle", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "398", "-skip", "1"])
-    # args = parser.parse_args(["-i", input_file, "-alnm", "t_coffee", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "246", "-skip", "1"])
+    # input_file = "./analysis_scripts/epoxide_fasta.txt"
+    # annotation_data = "./analysis_scripts/epoxide_blast_out_simple.txt"
+    # args = parser.parse_args(["-i", input_file, "-alnm", "linsi", "-o", "./analysis_scripts/", "--order_file", annotation_data, "EValue", "-sn", "400", "-skip", "1"])
+    # args = parser.parse_args(["-i", input_file, "-alnm", "muscle", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "1", "-skip", "1"])
+    # args = parser.parse_args(["-i", input_file, "-alnm", "t_coffee", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "127", "-skip", "1"])
     # args = parser.parse_args(["-i", input_file, "-alnm", "all", "-o", "/Users/julianzaugg/Desktop/my_test/", "--order_file", annotation_data, "EValue", "-sn", "86", "-skip", "20"])
 
     _parse_arguments(parser, args)
